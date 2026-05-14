@@ -1,0 +1,417 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Dealership SaaS — design tokens & shell overrides for legacy Bootstrap markup.
+ */
+
+@layer base {
+    :root {
+        --motor-canvas: 248 249 251;
+        --motor-elevated: 255 255 255;
+        --motor-muted: 100 116 139;
+        --motor-subtle: 148 163 184;
+        --motor-border: 226 232 240;
+        --motor-ring: 59 130 246;
+        --motor-ink: 15 23 42;
+        --motor-accent: 43 136 229;
+        --motor-accent-2: 139 92 246;
+        --motor-success: 34 197 94;
+        --motor-warning: 251 146 60;
+        --motor-danger: 239 68 68;
+        --motor-sidebar-top: 12 17 31;
+        --motor-sidebar-bottom: 8 12 26;
+        --motor-sidebar-item-hover: 255 255 255 / 0.06;
+        --motor-sidebar-active: 43 136 229 / 0.18;
+    }
+
+    [data-theme='dark'] {
+        --motor-canvas: 10 13 21;
+        --motor-elevated: 22 26 41;
+        --motor-muted: 148 163 184;
+        --motor-subtle: 100 116 139;
+        --motor-border: 42 52 71;
+        --motor-ring: 96 165 250;
+        --motor-ink: 226 232 240;
+        --motor-accent: 96 165 250;
+        --motor-accent-2: 167 139 250;
+        --motor-success: 74 222 128;
+        --motor-warning: 251 191 36;
+        --motor-danger: 248 113 113;
+        --motor-sidebar-top: 6 8 16;
+        --motor-sidebar-bottom: 4 7 17;
+        --motor-sidebar-item-hover: 255 255 255 / 0.055;
+        --motor-sidebar-active: 96 165 250 / 0.16;
+    }
+}
+
+/* -------------------------------------------------------------------------
+   App shell typography & canvas
+   ------------------------------------------------------------------------- */
+
+@layer components {
+    body.motor-deal-shell {
+        @apply bg-motor-canvas text-motor-ink antialiased;
+        font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .motor-deal-shell .dash-footer {
+        @apply border-t border-motor-border/80 bg-motor-canvas backdrop-blur;
+    }
+
+    .motor-deal-shell .dash-footer .text-muted {
+        @apply text-motor-subtle text-motor-sm tracking-wide;
+    }
+
+    /* --- Sidebar --- */
+
+    .motor-deal-shell #sidebar.sidebar,
+    .motor-deal-shell #sidebar.sidebar.light-sidebar,
+    .motor-deal-shell #sidebar.collapse {
+        background:
+            radial-gradient(
+                ellipse 140% 80% at 20% -10%,
+                rgba(139, 92, 246, 0.12),
+                transparent 55%
+            ),
+            linear-gradient(
+                165deg,
+                rgb(var(--motor-sidebar-top)),
+                rgb(var(--motor-sidebar-bottom))
+            );
+        border-right: 1px solid rgb(255 255 255 / 0.06);
+        box-shadow: 4px 0 42px rgb(0 0 0 / 0.2);
+        color: rgb(241 245 249);
+    }
+
+    .motor-deal-shell #sidebar .sidebar-header.m-header,
+    .motor-deal-shell #sidebar .m-header.main-logo {
+        @apply border-b border-white/10 bg-transparent;
+        background: rgb(255 255 255 / 0.02) !important;
+    }
+
+    .motor-brand-pill {
+        @apply inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-0.5 font-mono text-motor-xs uppercase tracking-[0.12em] text-slate-200/95;
+        margin-inline-start: 0.125rem;
+    }
+
+    .motor-deal-shell .dash-sidebar.light-sidebar .dash-navbar > .dash-item > .dash-link,
+    .motor-deal-shell #sidebar ul.dash-navbar .dash-link {
+        @apply rounded-lg border border-transparent px-3 py-2 text-motor-sm font-medium tracking-tight transition-all duration-200 ease-motor-out;
+        color: rgb(226 232 240 / 0.78);
+        margin-inline: 0.5rem;
+        margin-block: 0.1rem;
+    }
+
+    .motor-deal-shell
+        .dash-sidebar.light-sidebar
+        .dash-navbar
+        > .dash-item:hover
+        > .dash-link:not(.dash-logout-btn .dash-logout-main),
+    .motor-deal-shell #sidebar ul.dash-navbar .dash-item:hover > .dash-link {
+        background: rgb(var(--motor-sidebar-item-hover));
+        color: rgb(248 250 252 / 1);
+        border-color: rgb(255 255 255 / 0.04);
+    }
+
+    .motor-deal-shell #sidebar ul.dash-navbar .dash-item.active > .dash-link,
+    .motor-deal-shell #sidebar ul.dash-navbar .dash-trigger.active > .dash-link {
+        background: rgb(var(--motor-sidebar-active)) !important;
+        color: rgb(252 252 253) !important;
+        border-left: none !important;
+        box-shadow: inset 2px 0 0 rgb(var(--motor-accent)), 0 1px 0 rgb(0 0 0 / 0.15);
+        font-weight: 600 !important;
+    }
+
+    .motor-deal-shell #sidebar .dash-link .dash-micon .ti::before {
+        opacity: 0.88;
+    }
+
+    .motor-deal-shell #sidebar .dash-submenu,
+    .motor-deal-shell #sidebar .dash-navbar .dash-submenu {
+        margin-inline-start: 0.25rem !important;
+        padding-block: 0.25rem;
+        padding-inline-start: 0.25rem !important;
+        border-left: 1px solid rgb(255 255 255 / 0.08);
+        background: rgb(2 8 26 / 0.45);
+        border-radius: 0 0 0 0.5rem;
+        margin-inline-end: 0.65rem !important;
+    }
+
+    .motor-deal-shell #sidebar .dash-submenu li a:hover {
+        color: rgb(var(--motor-accent));
+    }
+
+    /* --- Top navigation --- */
+
+    body.motor-deal-shell .dash-header {
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        background: rgb(var(--motor-elevated) / 0.85) !important;
+        border-bottom: 1px solid rgb(var(--motor-border));
+        box-shadow: none !important;
+    }
+
+    .motor-deal-shell #sidebar-close-btn:hover {
+        @apply bg-motor-accent/25 text-white;
+        color: inherit;
+    }
+
+    .motor-deal-shell .dash-header .form-control[type='search'] {
+        @apply rounded-motor border-motor-border bg-motor-canvas px-4 py-2 text-motor-sm text-motor-ink placeholder:text-motor-subtle shadow-sm focus:border-transparent focus:ring-2 focus:ring-motor-ring/55;
+        min-inline-size: 12rem;
+    }
+
+    body.motor-deal-shell.theme-3.dash-horizontal .dash-header .form-control[type='search'] {
+        @apply rounded-motor;
+    }
+
+    .motor-deal-shell .dash-header .btn-primary,
+    .motor-deal-shell .dash-header .btn.btn-outline-success.btn-primary {
+        @apply rounded-motor bg-motor-accent px-5 py-2 font-semibold text-white shadow-motor hover:bg-motor-accent/90 hover:text-white active:translate-y-[0.5px] border-transparent;
+        background-image: linear-gradient(
+            180deg,
+            rgb(var(--motor-accent)),
+            rgb(37 99 235 / 0.94)
+        ) !important;
+    }
+
+    .motor-deal-shell .dash-header .dash-head-link {
+        @apply rounded-lg border border-transparent text-motor-ink transition-colors;
+    }
+
+    .motor-deal-shell .dash-header .dash-h-dropdown.dropdown-menu-end {
+        @apply mt-3 rounded-motor border border-motor-border bg-motor-elevated p-1 shadow-motor-lg;
+        min-inline-size: 15rem;
+    }
+
+    body[data-theme='dark'].motor-deal-shell .dash-header .dash-h-dropdown.dropdown-menu-end {
+        @apply shadow-motor-dark;
+    }
+
+    .motor-deal-shell .dash-header .dropdown-menu .dropdown-header {
+        @apply px-4 py-2 text-motor-sm font-semibold text-motor-ink;
+        border-bottom: 1px solid rgb(var(--motor-border));
+    }
+
+    /* --- Main workspace --- */
+
+    .motor-deal-shell .dash-container {
+        @apply min-h-[calc(100vh-4rem)];
+    }
+
+    body.motor-deal-shell.theme-3.dash-horizontal .dash-container.dash-contents {
+        margin-inline-start: unset;
+    }
+
+    .motor-deal-shell .dash-content {
+        padding-top: calc(76px + 0.75rem);
+        padding-bottom: 2.5rem;
+        padding-inline: clamp(1.25rem, 2.5vw, 2rem);
+    }
+
+    @media (width >= 64rem) {
+        body.motor-deal-shell.theme-3.dash-horizontal .dash-content {
+            margin-inline-start: 255px !important;
+        }
+    }
+
+    .motor-deal-shell .page-header {
+        margin-bottom: 1.75rem !important;
+    }
+
+    .motor-deal-shell .page-header .page-block {
+        padding: 0 !important;
+    }
+
+    .motor-deal-shell .page-header-title h4.m-b-10,
+    .motor-deal-shell .page-header .page-header-title h4 {
+        @apply text-motor-display font-semibold tracking-tight text-motor-ink m-0;
+        letter-spacing: -0.02em;
+    }
+
+    .motor-deal-shell .breadcrumb {
+        @apply mt-1 flex flex-wrap gap-x-2 gap-y-1 p-0 text-motor-sm;
+        background: transparent !important;
+    }
+
+    .motor-deal-shell .breadcrumb-item,
+    .motor-deal-shell .breadcrumb-item a {
+        @apply text-motor-muted;
+        text-decoration: none;
+    }
+
+    .motor-deal-shell .breadcrumb-item a:hover {
+        @apply text-motor-accent underline-offset-4;
+        text-decoration: underline;
+        background-color: transparent !important;
+    }
+
+    .motor-deal-shell .breadcrumb-item.active {
+        @apply font-medium text-motor-ink;
+    }
+
+    /* --- Cards --- */
+
+    .motor-deal-shell .card:not(.motor-surface-flat) {
+        @apply rounded-motor border border-motor-border bg-motor-elevated shadow-motor;
+        overflow: clip;
+        box-shadow:
+            var(--tw-shadow),
+            0 1px 0 rgb(255 255 255 / 0.5) inset;
+    }
+
+    body[data-theme='dark'].motor-deal-shell .card:not(.motor-surface-flat) {
+        box-shadow:
+            var(--tw-shadow),
+            inset 0 1px 0 rgb(255 255 255 / 0.04);
+    }
+
+    .motor-deal-shell .card.card-stats,
+    .motor-deal-shell .card.card-fluid {
+        @apply border-motor-border;
+    }
+
+    .motor-deal-shell .card .card-header {
+        @apply border-b border-motor-border bg-transparent px-5 py-4;
+    }
+
+    .motor-deal-shell .card .card-header h5,
+    .motor-deal-shell .card .card-header h4,
+    .motor-deal-shell .card .card-header h6 {
+        @apply m-0 text-motor-xl font-semibold tracking-tight text-motor-ink;
+    }
+
+    .motor-deal-shell .card .card-body {
+        @apply px-5 py-4 text-motor-base text-motor-ink;
+    }
+
+    /* --- Buttons --- */
+
+    .motor-deal-shell .btn-success {
+        @apply rounded-motor border-transparent bg-emerald-600 font-semibold text-white shadow-none hover:bg-emerald-700;
+    }
+
+    .motor-deal-shell .btn-danger:not(.motor-btn-ghost) {
+        @apply rounded-motor border-transparent font-semibold;
+    }
+
+    .motor-deal-shell .btn-primary {
+        @apply rounded-motor border-transparent bg-motor-accent px-5 py-2 font-semibold text-white shadow-none hover:bg-motor-accent/90;
+    }
+
+    .motor-deal-shell .btn-light-primary {
+        @apply rounded-motor border border-transparent bg-blue-600/15 font-semibold text-blue-900 hover:bg-blue-600/20;
+        color: rgb(30 58 138) !important;
+    }
+
+    body[data-theme='dark'].motor-deal-shell .btn-light-primary {
+        @apply bg-motor-accent/15 text-blue-50 hover:bg-motor-accent/25 border-motor-accent/35;
+        color: rgb(219 234 254) !important;
+    }
+
+    /* --- Tables --- */
+
+    .motor-deal-shell .table {
+        --bs-table-striped-bg: rgb(var(--motor-canvas) / 0.55);
+        @apply rounded-motor text-motor-base;
+    }
+
+    .motor-deal-shell .table thead th {
+        @apply border-motor-border bg-motor-canvas px-5 py-3 text-motor-sm font-semibold uppercase tracking-[0.04em] text-motor-muted;
+        border-block-end-width: 1px;
+    }
+
+    .motor-deal-shell .table tbody td {
+        @apply px-5 py-3 align-middle text-motor-sm text-motor-ink border-motor-border;
+    }
+
+    .motor-deal-shell .table.table-striped tbody tr:nth-of-type(odd) td {
+        @apply bg-motor-canvas/40;
+    }
+
+    /* --- Forms --- */
+
+    .motor-deal-shell .form-control,
+    .motor-deal-shell textarea.form-control,
+    .motor-deal-shell select.form-control {
+        @apply rounded-xl border border-motor-border bg-motor-elevated px-4 py-2.5 text-motor-sm shadow-none focus:border-transparent focus:ring-2 focus:ring-motor-ring/50;
+        color: inherit;
+    }
+
+    .motor-deal-shell .input-group-text {
+        @apply border-motor-border bg-motor-canvas text-motor-muted;
+        border-inline-end-width: 0;
+    }
+
+    .motor-deal-shell label {
+        @apply mb-2 text-motor-sm font-medium text-motor-muted;
+    }
+
+    /* --- Modals --- */
+
+    .motor-deal-shell #commonModal .modal-content,
+    .motor-deal-shell #commonModalOver .modal-content,
+    .motor-deal-shell #notification-modal .modal-content,
+    .motor-deal-shell .modal .modal-content {
+        @apply overflow-hidden rounded-2xl border border-motor-border bg-motor-elevated shadow-motor-lg outline-none;
+        box-shadow:
+            var(--tw-shadow),
+            inset 0 1px 0 rgb(255 255 255 / 0.25);
+    }
+
+    body[data-theme='dark'].motor-deal-shell .modal .modal-content {
+        @apply shadow-motor-dark border-motor-border;
+        box-shadow:
+            var(--tw-shadow),
+            inset 0 1px 0 rgb(255 255 255 / 0.04);
+    }
+
+    .motor-deal-shell #commonModal.modal .modal-header,
+    .motor-deal-shell .modal .modal-header {
+        @apply border-b border-motor-border px-6 py-4 font-semibold tracking-tight;
+    }
+
+    .motor-deal-shell .modal-footer {
+        @apply border-t border-motor-border bg-motor-canvas px-6 py-3;
+        gap: 0.65rem;
+    }
+
+    body.motor-deal-shell #commonModal .modal-dialog .modal-content > .body,
+    .motor-deal-shell .modal .modal-body {
+        @apply px-6 py-5 text-motor-base text-motor-ink;
+        line-height: 1.65;
+        max-inline-size: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    /* --- Charts / KPI --- */
+
+    .motor-deal-shell .dashboard-card .theme-avtar {
+        border-radius: 0.875rem !important;
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.2),
+            0 4px 12px rgb(15 23 42 / 0.12);
+        font-size: 1.125rem !important;
+    }
+
+    .motor-deal-shell #autocomplete-results {
+        @apply overflow-hidden rounded-motor border border-motor-border shadow-motor !important;
+        background: rgb(var(--motor-elevated)) !important;
+    }
+
+    .motor-deal-shell .dash-header input.form-control::-webkit-search-cancel-button {
+        filter: saturate(1.05);
+    }
+}
+
+@layer utilities {
+    .motor-text-vin {
+        @apply rounded-md border border-dashed border-motor-border px-3 py-1 font-mono text-motor-xs font-medium tracking-[0.12em];
+        letter-spacing: 0.145em !important;
+    }
+}

@@ -1,0 +1,8 @@
+Brand Name,Sub Brand Name,Product SKU,Product Name,Category Name,Unit Name,Product Sale Price,Product Purchase Price,VAT,Rent Price,Product Type,Sub Product No,Warehouse 1,Warehouse 2,Warehouse 3,Sub Product Sale Price,Sub Product Purchase Price,Product Model,Product Year,Sub Product VIN,Sub Product Color,Sub Product Engine No
+Nike,Air Max,SKU-001,Air Max 90,Shoes,Piece,150.00,100.00,5,50.00,product,VIN001,5,10,3,150.00,100.00,2024,2024,CAM001-VIN-001,Black,ENG001
+Nike,Air Max,SKU-001,Air Max 90,Shoes,Piece,150.00,100.00,5,50.00,product,VIN002,2,8,0,150.00,100.00,2024,2024,CAM002-VIN-002,White,ENG002
+Nike,Jordan,SKU-002,Jordan 1,Shoes,Piece,200.00,150.00,10,75.00,product,VIN003,15,5,10,200.00,150.00,2024,2024,ACC001-VIN-001,Red,ENG003
+Adidas,Ultra Boost,SKU-003,Ultra Boost 22,Shoes,Piece,180.00,120.00,15,60.00,product,VIN004,8,12,4,180.00,120.00,2024,2024,ACC002-VIN-002,Blue,ENG004
+Toyota,Camry,TOY-CAM-2024,Toyota Camry 2024,Cars,Unit,25000.00,20000.00,5,500.00,product,CAM001,1,0,0,25000.00,20000.00,2024,2024,CAM001-VIN-001,Black,ENG001
+Toyota,Camry,TOY-CAM-2024,Toyota Camry 2024,Cars,Unit,25000.00,20000.00,5,500.00,product,CAM002,0,1,0,25000.00,20000.00,2024,2024,CAM002-VIN-002,White,ENG002
+Honda,Accord,HON-ACC-2024,Honda Accord 2024,Cars,Unit,28000.00,22000.00,10,600.00,product,ACC001,2,1,1,28000.00,22000.00,2024,2024,ACC001-VIN-001,Silver,ENG003

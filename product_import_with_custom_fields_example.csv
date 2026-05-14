@@ -1,0 +1,6 @@
+name,sku,sale_price,purchase_price,type,quantity,description,category,brand,sub_brand,unit,tax,Gender,Color,Size,Style,Number Size,Internal Reference
+iPhone 15 Pro,IPH15PRO,999.99,799.99,product,50,Latest iPhone with Pro features,1,1,1,1,1,Male,Space Black,Large,Modern,15,REF001
+Samsung Galaxy S24,SAMS24,899.99,699.99,product,30,Flagship Android phone,1,2,2,1,2,Female,Titanium Gray,Medium,Contemporary,24,REF002
+MacBook Pro 16,MBP16,2499.99,1999.99,product,20,Professional laptop,2,3,3,2,1,Unisex,Silver,Extra Large,Professional,16,REF003
+AirPods Pro,APPRO,249.99,199.99,product,100,Wireless earbuds,3,1,4,1,1,Unisex,White,One Size,Compact,Pro,REF004
+iPad Air,IPADAIR,599.99,499.99,product,40,Tablet computer,2,3,5,2,2,Female,Rose Gold,Large,Portable,Air,REF005

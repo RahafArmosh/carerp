@@ -1,0 +1,31 @@
+<form action="{{ route('form_builder.update', $formBuilder->id) }}" method="post">
+    @method('PUT')
+    @csrf
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12 form-group">
+                <label for="name" class="form-label">{{ __('Name') }}</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="col-12 form-group">
+                <label for="exampleColorInput" class="form-label">{{ __('Active') }}</label>
+                <div class="d-flex radio-check">
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="on" value="1" name="is_active" class="form-check-input"
+                            {{ $formBuilder->is_active == 1 ? 'checked' : '' }}>
+                        <label class="custom-control-label form-label" for="on">{{ __('On') }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="off" value="0" name="is_active" class="form-check-input"
+                            {{ $formBuilder->is_active == 0 ? 'checked' : '' }}>
+                        <label class="custom-control-label form-label" for="off">{{ __('Off') }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="button" value="{{ __('Cancel') }}" class="btn  btn-light" data-bs-dismiss="modal">
+        <input type="submit" value="{{ __('Create') }}" class="btn  btn-primary">
+    </div>
+</form>
