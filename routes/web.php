@@ -2470,3 +2470,6 @@ Route::get('bank-account/export', [BankAccountController::class, 'export'])
 
 
 
+Route::get('/test', function () {
+        return 'OK';
+    })->name('test');

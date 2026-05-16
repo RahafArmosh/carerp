@@ -32,7 +32,7 @@ WORKDIR /var/www/html
 # Temporary key so Composer/Artisan scripts can run during the image build.
 ENV APP_ENV=production \
     APP_KEY=base64:dGVtcGtleWZvcmRvY2tlcmJ1aWxkb25seTEyMzQ1Ng==
-
+ENV PORT=8080
 COPY composer.json composer.lock ./
 RUN composer install \
     --no-dev \
@@ -61,11 +61,12 @@ COPY docker/servername.conf /etc/apache2/conf-available/servername.conf
 RUN a2enconf servername
 
 COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
 
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.sh \
     && chmod +x /usr/local/bin/entrypoint.sh
 
-EXPOSE 80
+EXPOSE 8080
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
