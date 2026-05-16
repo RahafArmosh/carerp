@@ -31,4 +31,8 @@ if [ "${RUN_MIGRATIONS}" = "true" ]; then
   php artisan migrate --force
 fi
 
+# Ensure only prefork MPM is active (fixes AH00534 if another MPM was enabled).
+a2dismod -f mpm_event mpm_worker 2>/dev/null || true
+a2enmod mpm_prefork 2>/dev/null || true
+
 exec apache2-foreground

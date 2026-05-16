@@ -52,7 +52,10 @@ RUN composer install \
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-RUN a2enmod rewrite headers
+# mod_php requires prefork; disable other MPMs to avoid AH00534.
+RUN a2dismod -f mpm_event mpm_worker 2>/dev/null || true \
+    && a2enmod mpm_prefork \
+    && a2enmod rewrite headers
 
 COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
