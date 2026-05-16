@@ -326,7 +326,7 @@ Route::get('login-with-company/exit', [UserController::class, 'ExitCompany'])->n
 Route::get('/form/{code}', [FormBuilderController::class, 'formView'])->name('form.view')->middleware([XSS::class]);
 Route::post('/form_view_store', [FormBuilderController::class, 'formViewStore'])->name('form.view.store')->middleware([XSS::class]);
 
-Route::get('/', [DashboardController::class, 'landingpage'])->middleware([XSS::class, RevalidateBackHistory::class]);
+Route::get('/', [DashboardController::class, 'landingPage'])->middleware([XSS::class, RevalidateBackHistory::class]);
 
 //================================= Invoice Payment Gateways  ====================================//
 Route::group(['middleware' => ['verified']], function () {

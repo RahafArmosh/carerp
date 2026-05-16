@@ -58,19 +58,16 @@ class DashboardController extends Controller
 
     public function landingPage()
     {
-        // if (!file_exists(storage_path() . "/installed")) {
-        //     header('location:install');
-        //     die;
-        // }
-
-        $adminSettings = Utility::settings();
-        if ($adminSettings['display_landing_page'] == 'on' && \Schema::hasTable('landing_page_settings')) {
-
-            return view('landingpage::layouts.landingpage' , compact('adminSettings'));
-
-        } else {
-            return redirect('login');
+        try {
+            $adminSettings = Utility::settings();
+            if ($adminSettings['display_landing_page'] == 'on' && \Schema::hasTable('landing_page_settings')) {
+                return view('landingpage::layouts.landingpage', compact('adminSettings'));
+            }
+        } catch (\Throwable $e) {
+            report($e);
         }
+
+        return redirect('login');
     }
 
     /**
