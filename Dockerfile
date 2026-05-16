@@ -57,6 +57,9 @@ RUN a2dismod -f mpm_event mpm_worker 2>/dev/null || true \
     && a2enmod mpm_prefork \
     && a2enmod rewrite headers
 
+COPY docker/servername.conf /etc/apache2/conf-available/servername.conf
+RUN a2enconf servername
+
 COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
