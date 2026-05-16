@@ -54,6 +54,20 @@ if [ -z "${APP_KEY:-}" ]; then
   exit 1
 fi
 
+php -r "
+  \$key = getenv('APP_KEY');
+  if (str_starts_with(\$key, 'base64:')) {
+    \$key = base64_decode(substr(\$key, 7), true);
+  }
+  if (\$key === false || strlen(\$key) !== 32) {
+    fwrite(STDERR, 'ERROR: APP_KEY is invalid (must be base64:... decoding to 32 bytes). Run: php artisan key:generate --show' . PHP_EOL);
+    exit(1);
+  }
+"
+
+# Drop any config cached at image build or from a previous deploy (e.g. invalid temp APP_KEY).
+rm -f bootstrap/cache/config.php bootstrap/cache/routes-v7.php bootstrap/cache/events.php bootstrap/cache/services.php 2>/dev/null || true
+
 if [ -n "${DB_HOST}" ]; then
   echo "Waiting for database at ${DB_HOST}:${DB_PORT}..."
   until php -r "
@@ -80,6 +94,8 @@ chown -R www-data:www-data storage bootstrap/cache 2>/dev/null || true
 chmod -R 775 storage bootstrap/cache 2>/dev/null || true
 
 php artisan storage:link --force 2>/dev/null || true
+
+php artisan package:discover --ansi
 
 php artisan config:clear
 php artisan config:cache

@@ -29,9 +29,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Temporary key so Composer/Artisan scripts can run during the image build.
-ENV APP_ENV=production \
-    APP_KEY=base64:dGVtcGtleWZvcmRvY2tlcmJ1aWxkb25seTEyMzQ1Ng==
+# APP_KEY must be set at runtime (Railway variables). Do not bake a fake key into the image.
 ENV PORT=8080
 COPY composer.json composer.lock ./
 RUN composer install \
@@ -47,7 +45,8 @@ RUN composer install \
     --no-dev \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --no-scripts
 
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
