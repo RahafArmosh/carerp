@@ -1,4 +1,4 @@
-<form action="{{ route('bill.edit.debit.note', [$debitNote->bill, $debitNote->id]) }}" method="post">
+<form action="{{ route('bill.edit.debit.note.update', [$debitNote->bill, $debitNote->id]) }}" method="post">
     @csrf
     @method('post')
     <div class="modal-body">

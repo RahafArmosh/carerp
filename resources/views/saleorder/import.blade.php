@@ -16,7 +16,7 @@
                     <h5 class="mb-0">{{ __('Import Sale Order from Excel') }}</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('saleorder.import') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('saleorder.import.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12 mb-3">

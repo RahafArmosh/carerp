@@ -16,7 +16,7 @@
                     <h5 class="mb-0">{{ __('Import Advance Sale Order - Items only file') }}</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('advance-saleorder.import') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('advance-saleorder.import.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 mb-3">

@@ -129,7 +129,7 @@
                     <div class="card-header card-body table-border-style">
                         <h5></h5>
 
-                        <form action="{{ route('attendanceemployee.bulkattendance') }}" method="post">
+                        <form action="{{ route('attendanceemployee.bulkattendance.store') }}" method="post">
                             @csrf
                             <div class="table-responsive">
                                 <table class="table" id="pc-dt-simple">

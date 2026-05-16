@@ -1,4 +1,4 @@
-<form action="{{ route('invoice.payment', $invoice->id) }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('invoice.payment.store', $invoice->id) }}" method="post" enctype="multipart/form-data">
     <div class="modal-body">
         <div class="row">
             <div class="form-group col-md-6">

@@ -50,16 +50,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->firstOrFail();
         });
 
-        $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
-        });
+        // Routes are registered in bootstrap/app.php (Laravel 11).
+        // Loading them here as well duplicates every named route and breaks route:cache.
     }
 
     /**

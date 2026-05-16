@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="row">
-        <form action="{{ route('job.on.board.convert', $jobOnBoard->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('job.on.board.convert.store', $jobOnBoard->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
     </div>
     <div class="row">

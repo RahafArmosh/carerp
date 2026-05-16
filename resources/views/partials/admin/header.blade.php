@@ -99,7 +99,7 @@
 
             <!-- Search Form -->
             <li class="dash-h-item ms-2" style="position: relative;">
-                <form class="d-flex mt-2" action="{{ route('search') }}" method="GET" id="search-form">
+                <form class="d-flex mt-2" action="{{ route('global.search') }}" method="GET" id="search-form">
                     <div style="position: relative; width: 100%;">
                         <input class="form-control me-2" type="search" name="query" id="search-input" 
                             placeholder="{{ __('Search') }}" aria-label="Search" autocomplete="off">

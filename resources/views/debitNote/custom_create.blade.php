@@ -1,4 +1,4 @@
-<form action="{{ route('bill.custom.debit.note') }}" method="POST">
+<form action="{{ route('bill.custom.debit.note.store') }}" method="POST">
     @csrf
     <div class="modal-body">
         <div class="row">

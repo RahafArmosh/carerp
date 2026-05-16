@@ -1,4 +1,4 @@
-<form action="{{ route('invoice.payment', $invoice->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('invoice.payment.store', $invoice->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="modal-body">
         <div class="row">

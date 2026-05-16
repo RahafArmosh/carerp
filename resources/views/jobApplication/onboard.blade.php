@@ -72,7 +72,7 @@
                                                     {{--                                            </a> --}}
 
                                                     <form method="GET"
-                                                        action="{{ route('job.on.board.convert', $job->id) }}"
+                                                        action="{{ route('job.on.board.convert.store', $job->id) }}"
                                                         id="job-form-{{ $job->id }}">
                                                         <a href="#"
                                                             class="mx-3 btn btn-sm align-items-center bs-pass-para"

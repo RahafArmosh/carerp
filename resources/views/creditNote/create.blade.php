@@ -1,4 +1,4 @@
-<form action="{{ route('invoice.credit.note', $invoice_id) }}" method="post">
+<form action="{{ route('invoice.credit.note.store', $invoice_id) }}" method="post">
     {{ csrf_field() }}
 <div class="modal-body">
     <div class="row">
