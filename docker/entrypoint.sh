@@ -36,6 +36,19 @@ fi
 export APP_ENV="${APP_ENV:-production}"
 export APP_DEBUG="${APP_DEBUG:-false}"
 
+# File-based session/cache unless explicitly configured (database sessions need migrations + DB on every request).
+export SESSION_DRIVER="${SESSION_DRIVER:-file}"
+export CACHE_STORE="${CACHE_STORE:-file}"
+export APP_MAINTENANCE_DRIVER="${APP_MAINTENANCE_DRIVER:-file}"
+export LOG_CHANNEL="${LOG_CHANNEL:-stderr}"
+export LOG_LEVEL="${LOG_LEVEL:-error}"
+
+# Database sessions hit MySQL on every request; without migrations this causes HTTP 500.
+if [ -n "${RAILWAY_PUBLIC_DOMAIN:-}" ] && [ "${SESSION_DRIVER}" = "database" ] && [ "${ALLOW_DATABASE_SESSION:-}" != "true" ]; then
+  export SESSION_DRIVER=file
+  echo "Railway: using SESSION_DRIVER=file (set ALLOW_DATABASE_SESSION=true after session table exists)."
+fi
+
 if [ -z "${APP_KEY:-}" ]; then
   echo "ERROR: APP_KEY is not set. Add APP_KEY in Railway variables (run: php artisan key:generate --show)"
   exit 1
@@ -62,6 +75,7 @@ else
   echo "WARNING: DB_HOST not set. Link a MySQL service on Railway or set DB_* variables."
 fi
 
+mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache/data storage/logs bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache 2>/dev/null || true
 chmod -R 775 storage bootstrap/cache 2>/dev/null || true
 
@@ -69,11 +83,15 @@ php artisan storage:link --force 2>/dev/null || true
 
 php artisan config:clear
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+php artisan route:cache || php artisan route:clear
+php artisan view:cache || true
 
 if [ "${RUN_MIGRATIONS:-false}" = "true" ]; then
   php artisan migrate --force
+fi
+
+if [ "${SESSION_DRIVER}" = "database" ]; then
+  echo "NOTE: SESSION_DRIVER=database requires a working DB and sessions table (php artisan session:table && migrate)."
 fi
 
 # Default 8080 (Railway and local Docker); override with PORT if needed.
