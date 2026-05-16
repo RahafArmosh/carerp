@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('purchase.payment', $purchase->id) }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('purchase.payment.store', $purchase->id) }}" enctype="multipart/form-data">
     @csrf
     <div class="modal-body">
         <div class="row">

@@ -138,7 +138,7 @@
                 var employee_id = $(this).val();
 
                 $.ajax({
-                    url: '{{ route('leave.jsoncount') }}',
+                    url: '{{ route('earlyleave.jsoncount') }}',
                     type: 'POST',
                     data: {
                         "employee_id": employee_id,

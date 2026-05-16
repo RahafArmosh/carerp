@@ -600,8 +600,6 @@ Route::group(['middleware' => ['verified']], function () {
     Route::get('/bill/preview/{template}/{color}', [BillController::class, 'previewBill'])->name('bill.preview')->middleware(['auth', XSS::class]);
     Route::post('/bill/template/setting', [BillController::class, 'saveBillTemplateSettings'])->name('bill.template.setting');
 
-    Route::resource('taxes', TaxController::class)->middleware(['auth', XSS::class, RevalidateBackHistory::class]);
-
     Route::get('revenue/index', [RevenueController::class, 'index'])->name('revenue.index')->middleware(['auth', XSS::class, RevalidateBackHistory::class]);
 
     Route::resource('revenue', RevenueController::class)->middleware(['auth', XSS::class, RevalidateBackHistory::class]);
@@ -956,7 +954,6 @@ Route::group(['middleware' => ['verified']], function () {
 
     // end Deal Module
 
-    Route::get('/search', [UserController::class, 'search'])->name('search.json');
     Route::post('/stages/order', [StageController::class, 'order'])->name('stages.order');
     Route::post('/stages/json', [StageController::class, 'json'])->name('stages.json');
 
@@ -1080,7 +1077,6 @@ Route::group(['middleware' => ['verified']], function () {
     Route::resource('otherpayment', OtherPaymentController::class)->middleware(['auth', XSS::class]);
     Route::resource('overtime', OvertimeController::class)->middleware(['auth', XSS::class]);
 
-    Route::get('employee/salary/{eid}', [SetSalaryController::class, 'employeeBasicSalary'])->name('employee.basic.salary')->middleware(['auth', XSS::class]);
     Route::post('employee/update/sallary/{id}', [SetSalaryController::class, 'employeeUpdateSalary'])->name('employee.salary.update')->middleware(['auth', XSS::class]);
     Route::get('salary/employeeSalary', [SetSalaryController::class, 'employeeSalary'])->name('employeesalary')->middleware(['auth', XSS::class]);
     Route::resource('setsalary', SetSalaryController::class)->middleware(['auth', XSS::class]);
@@ -1109,11 +1105,8 @@ Route::group(['middleware' => ['verified']], function () {
     Route::resource('indicator', IndicatorController::class)->middleware(['auth', XSS::class]);
     Route::resource('appraisal', AppraisalController::class)->middleware(['auth', XSS::class]);
 
-    Route::post('branch/employee/json', [EmployeeController::class, 'employeeJson'])->name('branch.employee.json')->middleware(['auth', XSS::class]);
-
     Route::resource('goaltype', GoalTypeController::class)->middleware(['auth', XSS::class]);
     Route::resource('goaltracking', GoalTrackingController::class)->middleware(['auth', XSS::class]);
-    Route::resource('account-assets', AssetController::class)->middleware(['auth', XSS::class]);
 
     Route::post('event/getdepartment', [EventController::class, 'getdepartment'])->name('event.getdepartment')->middleware(['auth', XSS::class]);
     Route::post('event/getemployee', [EventController::class, 'getemployee'])->name('event.getemployee')->middleware(['auth', XSS::class]);
@@ -1207,10 +1200,7 @@ Route::group(['middleware' => ['verified']], function () {
     Route::resource('earlyleave', DailyLeaveController::class)->middleware(['auth', XSS::class]);
     Route::post('earlyleave/changeaction', [DailyLeaveController::class, 'changeaction'])->name('earlyleave.changeaction')->middleware(['auth', XSS::class]);
     Route::get('earlyleave/{id}/action', [DailyLeaveController::class, 'action'])->name('earlyleave.action')->middleware(['auth', XSS::class]);
-    Route::post('earlyleave/jsoncount', [DailyLeaveController::class, 'jsoncount'])->name('leave.jsoncount')->middleware(['auth', XSS::class]);
-
-    Route::get('reports-leave', [ReportController::class, 'leave'])->name('report.leave')->middleware(['auth', XSS::class]);
-    Route::get('employee/{id}/leave/{status}/{type}/{month}/{year}', [ReportController::class, 'employeeLeave'])->name('report.employee.leave')->middleware(['auth', XSS::class]);
+    Route::post('earlyleave/jsoncount', [DailyLeaveController::class, 'jsoncount'])->name('earlyleave.jsoncount')->middleware(['auth', XSS::class]);
 
     Route::get('reports-payroll', [ReportController::class, 'payroll'])->name('report.payroll')->middleware(['auth', XSS::class]);
     Route::post('reports-payroll/getdepartment', [ReportController::class, 'getPayrollDepartment'])->name('report.payroll.getdepartment')->middleware(['auth', XSS::class]);
@@ -1239,16 +1229,11 @@ Route::group(['middleware' => ['verified']], function () {
     Route::get('users/{view?}', [UserController::class, 'index'])->name('users')->middleware(['auth', XSS::class]);
     Route::get('users-view', [UserController::class, 'filterUserView'])->name('filter.user.view')->middleware(['auth', XSS::class]);
     Route::get('checkuserexists', [UserController::class, 'checkUserExists'])->name('user.exists')->middleware(['auth', XSS::class]);
-    Route::get('profile', [UserController::class, 'profile'])->name('profile')->middleware(['auth', XSS::class]);
     Route::post('/profile', [UserController::class, 'updateProfile'])->name('update.profile')->middleware(['auth', XSS::class]);
     Route::get('user/info/{id}', [UserController::class, 'userInfo'])->name('users.info')->middleware(['auth', XSS::class]);
     Route::get('user/{id}/info/{type}', [UserController::class, 'getProjectTask'])->name('user.info.popup')->middleware(['auth', XSS::class]);
     Route::delete('users/{id}', [UserController::class, 'destroy'])->name('user.destroy')->middleware(['auth', XSS::class]);
     // End User Module
-
-    // Search
-    Route::get('/search', [UserController::class, 'search'])->name('search.json');
-    // end
 
     // Milestone Module
 
@@ -1404,12 +1389,10 @@ Route::group(['middleware' => ['verified']], function () {
     Route::post('/todo/create', [UserController::class, 'todo_store'])->name('todo.store')->middleware(['auth', XSS::class]);
     Route::post('/todo/{id}/update', [UserController::class, 'todo_update'])->name('todo.update')->middleware(['auth', XSS::class]);
     Route::delete('/todo/{id}', [UserController::class, 'todo_destroy'])->name('todo.destroy')->middleware(['auth', XSS::class]);
-    Route::get('/change/mode', [UserController::class, 'changeMode'])->name('change.mode')->middleware(['auth', XSS::class]);
     Route::get('dashboard-view', [DashboardController::class, 'filterView'])->name('dashboard.view')->middleware(['auth', XSS::class]);
     Route::get('dashboard', [DashboardController::class, 'clientView'])->name('client.dashboard.view')->middleware(['auth', XSS::class]);
 
     // saas
-    Route::resource('users', UserController::class)->middleware(['auth', XSS::class, RevalidateBackHistory::class]);
     Route::resource('plans', PlanController::class)->middleware(['auth', XSS::class, RevalidateBackHistory::class]);
     Route::resource('coupons', CouponController::class)->middleware(['auth', XSS::class, RevalidateBackHistory::class]);
 
@@ -1493,11 +1476,6 @@ Route::group(['middleware' => ['verified']], function () {
     // client wise project show in modal
 
     Route::any('/contract/clients/select/{bid}', [ContractController::class, 'clientwiseproject'])->name('contract.clients.select');
-
-    // copy contract
-
-    Route::get('/contract/copy/{id}', [ContractController::class, 'copycontract'])->name('contract.copy')->middleware(['auth', XSS::class]);
-    Route::post('contract/copy/store', [ContractController::class, 'copycontractstore'])->name('contract.copy.store')->middleware(['auth', XSS::class]);
 
     // Custom Landing Page
 
@@ -1590,20 +1568,6 @@ Route::group(['middleware' => ['verified']], function () {
     Route::delete('order/{id}', [BankTransferPaymentController::class, 'orderDestroy'])->name('order.destroy');
     Route::get('order/{id}/action', [BankTransferPaymentController::class, 'action'])->name('order.action');
 
-    Route::group(
-        [
-            'middleware' => [
-                'auth',
-                XSS::class,
-                RevalidateBackHistory::class,
-            ],
-        ],
-        function () {
-            Route::get('order', [StripePaymentController::class, 'index'])->name('order.index');
-            Route::get('/stripe/{code}', [StripePaymentController::class, 'stripe'])->name('stripe');
-            Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
-        }
-    );
     //    Route::post('plan-pay-with-paypal', [PaypalController::class, 'planPayWithPaypal'])->name('plan.pay.with.paypal')->middleware(['auth', XSS::class, RevalidateBackHistory::class]);
     //    Route::get('{id}/plan-get-payment-status', [PaypalController::class, 'planGetPaymentStatus'])->name('plan.get.payment.status')->middleware(['auth', XSS::class, RevalidateBackHistory::class]);
 
@@ -1753,7 +1717,7 @@ Route::group(['middleware' => ['verified']], function () {
 
             //    Route::get('/bill/{id}/', 'PurchaseController@purchaseLink')->name('purchase.link.copy');
             Route::get('purchase/{id}/payment', [PurchaseController::class, 'payment'])->name('purchase.payment');
-            Route::post('purchase/{id}/payment', [PurchaseController::class, 'createPayment'])->name('purchase.payment');
+            Route::post('purchase/{id}/payment', [PurchaseController::class, 'createPayment'])->name('purchase.payment.store');
             Route::post('purchase/{id}/payment/{pid}/destroy', [PurchaseController::class, 'paymentDestroy'])->name('purchase.payment.destroy');
             Route::post('purchase/product/destroy', [PurchaseController::class, 'productDestroy'])->name('purchase.product.destroy');
             Route::post('purchase/vender', [PurchaseController::class, 'vender'])->name('purchase.vender');
@@ -2456,7 +2420,7 @@ Route::get('import/pro/create-subproducts', function () {
 Route::post('import/pro/create-subproducts', [ProController::class, 'importCreateSubProducts'])->name('pro.import.create-subproducts')->middleware(['auth']);
 Route::post('import/pro/items-only', [ProController::class, 'importItemsOnly'])->name('pro.import.items-only')->middleware(['auth']);
 Route::get('export/pro', [ProController::class, 'export'])->name('pro.export')->middleware(['auth']);
-Route::get('export/pro', [MasterlistLedgerController::class, 'export'])->name('pro.recourds')->middleware(['auth']);
+Route::get('export/pro-records', [MasterlistLedgerController::class, 'export'])->name('pro.records.export')->middleware(['auth']);
 
 // ASN (Advanced Shipment Notice)
 use App\Http\Controllers\AsnController;
