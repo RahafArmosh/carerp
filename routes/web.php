@@ -195,6 +195,7 @@ use App\Http\Controllers\PricingListTypeController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\TrainingTypeController;
 use App\Models\PosProductsRefund;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -2470,6 +2471,11 @@ Route::get('bank-account/export', [BankAccountController::class, 'export'])
 
 
 
-Route::get('/test', function () {
-        return 'OK';
-    })->name('test');
+    Route::get('/db-test', function () {
+        try {
+            DB::connection()->getPdo();
+            return "DB Connected: " . DB::connection()->getDatabaseName();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    });
