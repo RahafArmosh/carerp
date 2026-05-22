@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Closure;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         DB::listen(function ($query) {
+            if (app()->environment('production')) {
+                URL::forceScheme('https');
+            }
             if ($query->time > 500) { // log queries slower than 0.5 seconds
                 Log::warning('Slow query detected', [
                     'sql' => $query->sql,
